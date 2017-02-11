@@ -9,7 +9,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
-import javax.swing.JButton;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -77,7 +76,7 @@ public class Calculadora extends JFrame {
 		for (int n = 9; n >= 0; n--) {
 			nuevoBotonNumerico("" + n);
 		}
-
+                
 		nuevoBotonNumerico(".");
 
 		panel.add("Center", panelNumeros);
@@ -90,6 +89,8 @@ public class Calculadora extends JFrame {
 		nuevoBotonOperacion("-");
 		nuevoBotonOperacion("*");
 		nuevoBotonOperacion("/");
+                nuevoBotonOperacion("nPr");
+                nuevoBotonOperacion("nCr");
 		nuevoBotonOperacion("=");
 		nuevoBotonOperacion("CE");
 
@@ -192,7 +193,20 @@ public class Calculadora extends JFrame {
 			resultado /= new Double(pantalla.getText());
 		} else if (operacion.equals("*")) {
 			resultado *= new Double(pantalla.getText());
-		}
+		} else if (operacion.equals("nPr")){
+                        for(int i = new Double(resultado).intValue() - 1, j = 0; j < new Double(pantalla.getText()).intValue()-1; i--, j++){
+                            resultado *= i;
+                        }
+                } else if (operacion.equals("nCr")){
+                        long divisor = new Long(pantalla.getText());
+                        for(int i = new Double(resultado).intValue() - 1, j = 0; j < new Double(pantalla.getText()).intValue()-1; i--, j++){
+                            resultado *= i;
+                        }
+                        for(long i = divisor-1; i > 1; i--){
+                            divisor *= i;
+                        }
+                        resultado /= divisor;
+                }
 
 		pantalla.setText("" + resultado);
 		operacion = "";
