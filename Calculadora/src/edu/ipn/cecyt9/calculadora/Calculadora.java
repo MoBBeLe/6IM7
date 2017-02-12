@@ -52,7 +52,7 @@ public class Calculadora extends JFrame {
 	 */
 	public Calculadora() {
 		super();
-		setSize(250, 300);
+		setSize(300, 300);
 		setTitle("Calculadora Simple");
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setResizable(false);
@@ -91,6 +91,9 @@ public class Calculadora extends JFrame {
 		nuevoBotonOperacion("/");
                 nuevoBotonOperacion("nPr");
                 nuevoBotonOperacion("nCr");
+                nuevoBotonOperacion("x^y");
+                nuevoBotonOperacion("y√x");
+                nuevoBotonOperacion("%");
 		nuevoBotonOperacion("=");
 		nuevoBotonOperacion("CE");
 
@@ -197,7 +200,12 @@ public class Calculadora extends JFrame {
                         for(int i = new Double(resultado).intValue() - 1, j = 0; j < new Double(pantalla.getText()).intValue()-1; i--, j++){
                             resultado *= i;
                         }
-                        
+                } else if (operacion.equals("x^y")){
+                        resultado = Math.pow(resultado,new Double(pantalla.getText()));
+                } else if (operacion.equals("y√x")){
+                        resultado = Math.pow(resultado,1/(new Double(pantalla.getText())));
+                } else if (operacion.equals("%")){
+                        resultado %= new Double(pantalla.getText());
                 } else if (operacion.equals("nCr")){
                         long divisor = new Long(pantalla.getText());
                         for(int i = new Double(resultado).intValue() - 1, j = 0; j < new Double(pantalla.getText()).intValue()-1; i--, j++){
