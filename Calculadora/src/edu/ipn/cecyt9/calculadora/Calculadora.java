@@ -1,4 +1,3 @@
-
 package edu.ipn.cecyt9.calculadora;
 
 import java.awt.BorderLayout;
@@ -8,6 +7,7 @@ import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.JButton;
 import javax.swing.JButton;
 
 import javax.swing.JFrame;
@@ -50,10 +50,12 @@ public class Calculadora extends JFrame {
 	/**
 	 * Constructor. Crea los botones y componentes de la calculadora
 	 */
+        
+        
 	public Calculadora() {
 		super();
-		setSize(300, 300);
-		setTitle("Calculadora Simple");
+		setSize(350, 400);
+		setTitle("Calculadora");
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setResizable(false);
 
@@ -76,7 +78,7 @@ public class Calculadora extends JFrame {
 		for (int n = 9; n >= 0; n--) {
 			nuevoBotonNumerico("" + n);
 		}
-                
+
 		nuevoBotonNumerico(".");
 
 		panel.add("Center", panelNumeros);
@@ -88,17 +90,15 @@ public class Calculadora extends JFrame {
 		nuevoBotonOperacion("+");
 		nuevoBotonOperacion("-");
 		nuevoBotonOperacion("*");
-		nuevoBotonOperacion("/");
-                nuevoBotonOperacion("nPr");
-                nuevoBotonOperacion("nCr");
-                nuevoBotonOperacion("x^y");
-                nuevoBotonOperacion("y√x");
-                nuevoBotonOperacion("%");
-		nuevoBotonOperacion("=");
+		nuevoBotonOperacion("/");               
+                nuevoBotonOperacion("√");
+                nuevoBotonOperacion("x²");
+                nuevoBotonOperacion("x³");
+                nuevoBotonOperacion("x!");
+                nuevoBotonOperacion("log");                  
 		nuevoBotonOperacion("CE");
-
+                nuevoBotonOperacion("=");
 		panel.add("East", panelOperaciones);
-
 		validate();
 	}
 
@@ -196,28 +196,45 @@ public class Calculadora extends JFrame {
 			resultado /= new Double(pantalla.getText());
 		} else if (operacion.equals("*")) {
 			resultado *= new Double(pantalla.getText());
-		} else if (operacion.equals("nPr")){
-                        for(int i = new Double(resultado).intValue() - 1, j = 0; j < new Double(pantalla.getText()).intValue()-1; i--, j++){
-                            resultado *= i;
-                        }
-                } else if (operacion.equals("x^y")){
-                        resultado = Math.pow(resultado,new Double(pantalla.getText()));
-                } else if (operacion.equals("y√x")){
-                        resultado = Math.pow(resultado,1/(new Double(pantalla.getText())));
-                } else if (operacion.equals("%")){
-                        resultado %= new Double(pantalla.getText());
-                } else if (operacion.equals("nCr")){
-                        long divisor = new Long(pantalla.getText());
-                        for(int i = new Double(resultado).intValue() - 1, j = 0; j < new Double(pantalla.getText()).intValue()-1; i--, j++){
-                            resultado *= i;
-                        }
-                        for(long i = divisor-1; i > 1; i--){
-                            divisor *= i;
-                        }
-                        resultado /= divisor;
-                }
+		} else if (operacion.equals("x²")) {
+                        resultado += new Double(pantalla.getText()) * new Double(pantalla.getText());
+                } else if (operacion.equals("x³")) {
+                        resultado += new Double(pantalla.getText()) * new Double(pantalla.getText()) * new Double(pantalla.getText());
+                }  else if (operacion.equals("log")) {
+                        double logaritmo = Math.log(new Double(pantalla.getText()));
+                        resultado += logaritmo;
+                } else if (operacion.equals("√")) {
+                            double numEnter = new Double(pantalla.getText());
+                            int numEntero = (int) numEnter;
+                            resultado = resultado - new Double(pantalla.getText());
+                            int contador = 1;
+                            boolean ciclo = true;
+                            int contCuadrado = 0;
+                            while(ciclo == true){
+                                contCuadrado = contador * contador;
+                                if(contCuadrado > numEntero){
+                                    ciclo = false ;
+                                }else{
+                                    contador += 1;
+                                }
+                            }
+                            int respuesta1 = contador - 1;
+                        resultado += respuesta1 ;
+                        
+                } else if (operacion.equals("x!")) {
+                        double factorial = new Double(pantalla.getText());
+                        resultado = resultado - new Double(pantalla.getText());
+                        int fact = (int)factorial;
+                        int resul4 = fact;
+                        int count = fact - 1;
 
-		pantalla.setText("" + resultado);
-		operacion = "";
+                        for(int i = fact; i > 1; i--){
+                            resul4 = count * resul4;
+                            count -=1;
+                        }
+                        resultado += resul4;
+                } 
+                    pantalla.setText("" + resultado);
+                    operacion = "";
 	}
 }
