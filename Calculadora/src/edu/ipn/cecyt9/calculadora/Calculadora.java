@@ -197,6 +197,7 @@ public class Calculadora extends JFrame {
                         for(int i = new Double(resultado).intValue() - 1, j = 0; j < new Double(pantalla.getText()).intValue()-1; i--, j++){
                             resultado *= i;
                         }
+                        
                 } else if (operacion.equals("nCr")){
                         long divisor = new Long(pantalla.getText());
                         for(int i = new Double(resultado).intValue() - 1, j = 0; j < new Double(pantalla.getText()).intValue()-1; i--, j++){
